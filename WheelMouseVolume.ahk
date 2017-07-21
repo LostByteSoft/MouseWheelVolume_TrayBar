@@ -15,11 +15,11 @@
 
 	SetEnv, title, MouseWheelVolume
 	SetEnv, mode, Mouse volume control over taskbar.
-	SetEnv, version, Version 2017-05-03
+	SetEnv, version, Version 2017-05-21
 	SetEnv, author, LostByteSoft
 
 	IniRead, sound, c:\windows\system.ini, drivers, sound
-	IfEqual, sound,, IniWrite, 1, c:\windows\system.ini, drivers, sound
+	IfEqual, sound, ERROR, IniWrite, 0, c:\windows\system.ini, drivers, sound
 
 	FileInstall, ico_volume.ico, ico_volume.ico, 0
 	FileInstall, snd_tick.wav, snd_tick.wav, 0
@@ -100,6 +100,7 @@ soundonoff:
 	IfEqual, sound, 1, goto, disablesound
 	IfEqual, sound, 0, goto, enablesound
 	msgbox, error_02 sound error sound=%sound%
+	;IniWrite, 0, c:\windows\system.ini, drivers, sound
 	Goto, Start
 
 	enablesound:
