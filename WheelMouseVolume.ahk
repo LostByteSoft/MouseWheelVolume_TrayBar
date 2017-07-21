@@ -15,7 +15,7 @@
 
 	SetEnv, title, MouseWheelVolume
 	SetEnv, mode, Mouse volume control over taskbar.
-	SetEnv, version, Version 2017-05-21
+	SetEnv, version, Version 2017-07-21
 	SetEnv, author, LostByteSoft
 
 	IniRead, sound, c:\windows\system.ini, drivers, sound
