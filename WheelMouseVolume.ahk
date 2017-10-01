@@ -8,19 +8,16 @@
 
 ;;--- Software options ---
 
+	SetWorkingDir, %A_ScriptDir%
 	#SingleInstance Force
 	#Persistent
 	#NoEnv
-	SetWorkingDir, %A_ScriptDir%
 
 	SetEnv, title, MouseWheelVolume
 	SetEnv, mode, Mouse volume control over taskbar.
-	SetEnv, version, Version 2017-09-21-0844
+	SetEnv, version, Version 2017-10-01-0928
 	SetEnv, author, LostByteSoft
-
-	;IniRead, sound, c:\windows\system.ini, drivers, sound
-	;IfEqual, sound, ERROR, SetEnv, sound, 0
-	;IfEqual, sound, ERROR, IniWrite, 0, c:\windows\system.ini, drivers, sound
+	SetEnv, logoicon, ico_wheel.ico
 
 	FileInstall, MouseWheelVolume.ini, MouseWheelVolume.ini, 0
 	FileInstall, ico_volume.ico, ico_volume.ico, 0
@@ -35,29 +32,34 @@
 	FileInstall, ico_options.ico, ico_options.ico, 0
 
 	IniRead, sound, MouseWheelVolume.ini, options, sound
-	IniRead, place, MouseWheelVolume.ini, options, place
+	IniRead, taskbar, MouseWheelVolume.ini, options, taskbar
 
 ;;--- Menu Tray options ---
 
 	Menu, Tray, NoStandard
-	Menu, tray, add, --= Mouse Wheel Volume =--, about1
-	Menu, Tray, Icon, --= Mouse Wheel Volume =--, ico_wheel.ico
+	Menu, tray, add, ---=== %title% ===---, about
+	Menu, Tray, Icon, ---=== %title% ===---, %logoicon%
 	Menu, tray, add, Show logo, GuiLogo
-	Menu, tray, add, About - %author%, about3				; Creates a new menu item.
-	Menu, Tray, Icon, About - %author%, ico_about.ico
-	Menu, tray, add, %Version%, version					; About version
-	Menu, Tray, Icon, %Version%, ico_about.ico
+	Menu, tray, add, Secret MsgBox, secret					; Secret MsgBox, just show all options and variables of the program
+	Menu, Tray, Icon, Secret MsgBox, ico_lock.ico
+	Menu, tray, add, About && ReadMe, author
+	Menu, Tray, Icon, About && ReadMe, ico_about.ico
+	Menu, tray, add, Author %author%, about
+	menu, tray, disable, Author %author%
+	Menu, tray, add, %version%, about
+	menu, tray, disable, %version%
 	Menu, tray, add,
-	Menu, tray, add, Exit Mouse Volume, ExitApp				; ExitApp exit program
-	Menu, Tray, Icon, Exit Mouse Volume, ico_shut.ico
+	Menu, tray, add, Exit, Close						; Close exit program
+	Menu, Tray, Icon, Exit, ico_shut.ico
+	;Menu, tray, add, Refresh FitScreen, doReload				; Reload the script. Usefull if you change something in configuration
+	;Menu, Tray, Icon, Refresh FitScreen, ico_reboot.ico
 	Menu, tray, add,
 	Menu, tray, add, --= Options =--, about2
 	Menu, Tray, Icon, --= Options =--, ico_options.ico
-	Menu, tray, add,
 	Menu, tray, add, Sound On/Off = %sound%, soundonoff 			; Sound on off
 	Menu, Tray, Icon, Sound On/Off = %sound%, ico_Sound.ico
-	Menu, tray, add, Taskbar or Screen = %place%, placeonoff 		; Sound on off
-	Menu, Tray, Icon, Taskbar or Screen = %place%, ico_options.ico
+	Menu, tray, add, Taskbar or Screen = %taskbar%, placeonoff
+	Menu, Tray, Icon, Taskbar or Screen = %taskbar%, ico_options.ico
 	Menu, tray, add,
 	Menu, tray, add, Win Mute / UnMute Sound, mute
 	Menu, Tray, Icon, Win Mute / UnMute Sound, ico_mute.ico
@@ -139,32 +141,40 @@ soundonoff:
 	Goto, Start
 
 placeonoff:
-	IfEqual, place, 1, goto, disableplace
-	IfEqual, place, 0, goto, enableplace
+	IfEqual, taskbar, 1, goto, disableplace
+	IfEqual, taskbar, 0, goto, enableplace
 	msgbox, error_03 place error place=%place%
 	Goto, Start
 
 	enableplace:
-	SetEnv, place, 1
-	IniWrite, 1,MouseWheelVolume.ini, options, place
-	TrayTip, %title%, Place enabled %place%, 2, 2
+	SetEnv, taskbar, 1
+	IniWrite, 1,MouseWheelVolume.ini, options, taskbar
+	TrayTip, %title%, All screen enabled %taskbar%, 2, 2
 	Menu, Tray, Rename, Taskbar or Screen = 0, Taskbar or Screen = 1
 	Goto, Start
 
 	disableplace:
-	SetEnv, place, 0
-	IniWrite, 0, MouseWheelVolume.ini, options, place
-	TrayTip, %title%, Place disabled %place%, 2, 2
+	SetEnv, taskbar, 0
+	IniWrite, 0, MouseWheelVolume.ini, options, taskbar
+	TrayTip, %title%, Taskbar only %taskbar%, 2, 2
 	Menu, Tray, Rename, Taskbar or Screen = 1, Taskbar or Screen = 0
 	Goto, Start
 
 ;;--- Quit (escape , esc) ---
 
-ExitApp:
+Close:
 	ExitApp
+
+;Escape::		; For debug & testing
+	ExitApp
+
+doReload:
+	Reload
+	Return
 
 ;;--- Tray Bar (must be at end of file) ---
 
+about:
 about1:
 about2:
 about3:
@@ -179,10 +189,19 @@ SndVol:
 	Run, SndVol.exe
 	Return
 
+author:
+	MsgBox, 64, %title%, %title% %mode% %version% %author%. This software is usefull for modify volume with mouse wheel.`n`n`tGo to https://github.com/LostByteSoft
+	Return
+
+secret:
+	MsgBox, 48, %title%,title=%title% mode=%mode% version=%version% author=%author% taskbar=%taskbar%
+	return
+
 GuiLogo:
-	Gui, Add, Picture, x25 y25 w400 h400 , ico_wheel.ico
+	Gui, Add, Picture, x25 y25 w400 h400 , %logoicon%
 	Gui, Show, w450 h450, %title% Logo
 	Gui, Color, 000000
+	Sleep, 500
 	return
 
 ;;--- End of script ---
