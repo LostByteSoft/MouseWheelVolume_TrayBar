@@ -15,9 +15,9 @@
 
 	SetEnv, title, MouseWheelVolume
 	SetEnv, mode, Mouse volume control over taskbar.
-	SetEnv, version, Version 2017-10-01-0928
+	SetEnv, version, Version 2017-10-11-1758
 	SetEnv, author, LostByteSoft
-	SetEnv, logoicon, ico_wheel.ico
+	SetEnv, logoicon, ico_volume.ico
 
 	FileInstall, MouseWheelVolume.ini, MouseWheelVolume.ini, 0
 	FileInstall, ico_volume.ico, ico_volume.ico, 0
@@ -30,9 +30,9 @@
 	FileInstall, ico_wheel.ico, ico_wheel.ico, 0
 	FileInstall, ico_Sound.ico, ico_Sound.ico, 0
 	FileInstall, ico_options.ico, ico_options.ico, 0
+	FileInstall, ico_lock.ico,ico_lock.ico, 0
 
 	IniRead, sound, MouseWheelVolume.ini, options, sound
-	IniRead, taskbar, MouseWheelVolume.ini, options, taskbar
 
 ;;--- Menu Tray options ---
 
@@ -58,8 +58,6 @@
 	Menu, Tray, Icon, --= Options =--, ico_options.ico
 	Menu, tray, add, Sound On/Off = %sound%, soundonoff 			; Sound on off
 	Menu, Tray, Icon, Sound On/Off = %sound%, ico_Sound.ico
-	Menu, tray, add, Taskbar or Screen = %taskbar%, placeonoff
-	Menu, Tray, Icon, Taskbar or Screen = %taskbar%, ico_options.ico
 	Menu, tray, add,
 	Menu, tray, add, Win Mute / UnMute Sound, mute
 	Menu, Tray, Icon, Win Mute / UnMute Sound, ico_mute.ico
@@ -140,26 +138,6 @@ soundonoff:
 	Menu, Tray, Rename, Sound On/Off = 1, Sound On/Off = 0
 	Goto, Start
 
-placeonoff:
-	IfEqual, taskbar, 1, goto, disableplace
-	IfEqual, taskbar, 0, goto, enableplace
-	msgbox, error_03 place error place=%place%
-	Goto, Start
-
-	enableplace:
-	SetEnv, taskbar, 1
-	IniWrite, 1,MouseWheelVolume.ini, options, taskbar
-	TrayTip, %title%, All screen enabled %taskbar%, 2, 2
-	Menu, Tray, Rename, Taskbar or Screen = 0, Taskbar or Screen = 1
-	Goto, Start
-
-	disableplace:
-	SetEnv, taskbar, 0
-	IniWrite, 0, MouseWheelVolume.ini, options, taskbar
-	TrayTip, %title%, Taskbar only %taskbar%, 2, 2
-	Menu, Tray, Rename, Taskbar or Screen = 1, Taskbar or Screen = 0
-	Goto, Start
-
 ;;--- Quit (escape , esc) ---
 
 Close:
@@ -194,7 +172,7 @@ author:
 	Return
 
 secret:
-	MsgBox, 48, %title%,title=%title% mode=%mode% version=%version% author=%author% taskbar=%taskbar%
+	MsgBox, 48, %title%,title=%title% mode=%mode% version=%version% author=%author%
 	return
 
 GuiLogo:
