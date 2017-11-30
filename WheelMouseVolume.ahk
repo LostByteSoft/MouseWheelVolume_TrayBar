@@ -15,22 +15,30 @@
 
 	SetEnv, title, MouseWheelVolume
 	SetEnv, mode, Mouse volume control over taskbar.
-	SetEnv, version, Version 2017-10-11-1758
+	SetEnv, version, Version 2017-11-25-1327
 	SetEnv, author, LostByteSoft
+	SetEnv, icofolder, C:\Program Files\Common Files
 	SetEnv, logoicon, ico_volume.ico
 
+	;; specific files
+
 	FileInstall, MouseWheelVolume.ini, MouseWheelVolume.ini, 0
-	FileInstall, ico_volume.ico, ico_volume.ico, 0
-	FileInstall, ico_volume_r.ico, ico_volume_r.ico, 0
 	FileInstall, snd_tick.wav, snd_tick.wav, 0
-	FileInstall, ico_volume_2.ico, ico_volume_2.ico, 0
-	FileInstall, ico_shut.ico, ico_shut.ico, 0
-	FileInstall, ico_about.ico, ico_about.ico, 0
-	FileInstall, ico_mute.ico, ico_mute.ico, 0
-	FileInstall, ico_wheel.ico, ico_wheel.ico, 0
-	FileInstall, ico_Sound.ico, ico_Sound.ico, 0
-	FileInstall, ico_options.ico, ico_options.ico, 0
-	FileInstall, ico_lock.ico,ico_lock.ico, 0
+	FileInstall, ico_volume.ico, %icofolder%\ico_volume.ico, 0
+	FileInstall, ico_volume_2.ico, %icofolder%\ico_volume_2.ico, 0
+	FileInstall, ico_mute.ico, %icofolder%\ico_mute.ico, 0
+	FileInstall, ico_wheel.ico, %icofolder%\ico_wheel.ico, 0
+	FileInstall, ico_Sound.ico, %icofolder%\ico_Sound.ico, 0
+
+	;; Common ico
+
+	FileInstall, ico_about.ico, %icofolder%\ico_about.ico, 0
+	FileInstall, ico_lock.ico, %icofolder%\ico_lock.ico, 0
+	FileInstall, ico_shut.ico, %icofolder%\ico_shut.ico, 0
+	FileInstall, ico_options.ico, %icofolder%\ico_options.ico, 0
+	FileInstall, ico_reboot.ico, %icofolder%\ico_reboot.ico, 0
+	FileInstall, ico_shut.ico, %icofolder%\ico_shut.ico, 0
+	FileInstall, ico_debug.ico, %icofolder%\ico_debug.ico, 0
 
 	IniRead, sound, MouseWheelVolume.ini, options, sound
 
@@ -38,38 +46,37 @@
 
 	Menu, Tray, NoStandard
 	Menu, tray, add, ---=== %title% ===---, about
-	Menu, Tray, Icon, ---=== %title% ===---, %logoicon%
+	Menu, Tray, Icon, ---=== %title% ===---, %icofolder%\%logoicon%
 	Menu, tray, add, Show logo, GuiLogo
 	Menu, tray, add, Secret MsgBox, secret					; Secret MsgBox, just show all options and variables of the program
-	Menu, Tray, Icon, Secret MsgBox, ico_lock.ico
+	Menu, Tray, Icon, Secret MsgBox, %icofolder%\ico_lock.ico
 	Menu, tray, add, About && ReadMe, author
-	Menu, Tray, Icon, About && ReadMe, ico_about.ico
+	Menu, Tray, Icon, About && ReadMe, %icofolder%\ico_about.ico
 	Menu, tray, add, Author %author%, about
 	menu, tray, disable, Author %author%
 	Menu, tray, add, %version%, about
 	menu, tray, disable, %version%
 	Menu, tray, add,
 	Menu, tray, add, Exit, Close						; Close exit program
-	Menu, Tray, Icon, Exit, ico_shut.ico
-	;Menu, tray, add, Refresh FitScreen, doReload				; Reload the script. Usefull if you change something in configuration
-	;Menu, Tray, Icon, Refresh FitScreen, ico_reboot.ico
+	Menu, Tray, Icon, Exit, %icofolder%\ico_shut.ico
+	Menu, tray, add, Refresh FitScreen, doReload				; Reload the script. Usefull if you change something in configuration
+	Menu, Tray, Icon, Refresh FitScreen, %icofolder%\ico_reboot.ico
 	Menu, tray, add,
 	Menu, tray, add, --= Options =--, about2
-	Menu, Tray, Icon, --= Options =--, ico_options.ico
+	Menu, Tray, Icon, --= Options =--, %icofolder%\ico_options.ico
 	Menu, tray, add, Sound On/Off = %sound%, soundonoff 			; Sound on off
-	Menu, Tray, Icon, Sound On/Off = %sound%, ico_Sound.ico
+	Menu, Tray, Icon, Sound On/Off = %sound%, %icofolder%\ico_Sound.ico
 	Menu, tray, add,
 	Menu, tray, add, Win Mute / UnMute Sound, mute
-	Menu, Tray, Icon, Win Mute / UnMute Sound, ico_mute.ico
+	Menu, Tray, Icon, Win Mute / UnMute Sound, %icofolder%\ico_mute.ico
 	Menu, tray, add, Win Sound Mixer, SndVol				; Open windows sound mixer
-	Menu, Tray, Icon, Win Sound Mixer, ico_volume_2.ico
+	Menu, Tray, Icon, Win Sound Mixer, %icofolder%\ico_volume_2.ico
 	Menu, tray, add,
 	Menu, Tray, Tip, Mouse Volume Control
 
 ;;--- Software start here ---
 
 start:
-	Menu, Tray, Icon, ico_volume.ico
 	~WheelUp::mouseWheelVolume("+4")
 	~WheelDown::mouseWheelVolume("-8")
 	mouseWheelVolume(step)
@@ -80,7 +87,6 @@ start:
 		if cls=Shell_TrayWnd
 
 		{
-			Menu, Tray, Icon, ico_volume_r.ico
 			SoundSet %step%
 			soundSet 0, , mute
 			soundGet vol
@@ -98,7 +104,6 @@ start:
 		removeVolumeTip:
 		tooltip,,,,19
 		settimer removeVolumeTip,OFF
-		Menu, Tray, Icon, ico_volume.ico
 		return
 	}
 
@@ -107,13 +112,13 @@ start:
 mute:
 	IfEqual, var, 1, goto, unmute
 	Send {Volume_Mute}
-	Menu, Tray, Icon, Win Mute / UnMute Sound, ico_volume_2.ico
+	Menu, Tray, Icon, Win Mute / UnMute Sound, %icofolder%\ico_volume_2.ico
 	SetEnv, var, 1
 	Goto, Start
 
 	unmute:
 	Send {Volume_Mute}
-	Menu, Tray, Icon, Win Mute / UnMute Sound, ico_mute.ico
+	Menu, Tray, Icon, Win Mute / UnMute Sound, %icofolder%\ico_mute.ico
 	SetEnv, var, 0
 	Goto, Start
 
@@ -125,7 +130,7 @@ soundonoff:
 
 	enablesound:
 	SetEnv, sound, 1
-	SoundPlay, snd_tick.wav, wait
+	SoundPlay, %icofolder%\snd_tick.wav, wait
 	IniWrite, 1,MouseWheelVolume.ini, options, sound
 	TrayTip, %title%, Sound enabled %sound%, 2, 2
 	Menu, Tray, Rename, Sound On/Off = 0, Sound On/Off = 1
@@ -176,10 +181,14 @@ secret:
 	return
 
 GuiLogo:
-	Gui, Add, Picture, x25 y25 w400 h400 , %logoicon%
-	Gui, Show, w450 h450, %title% Logo
-	Gui, Color, 000000
+	Gui, 4:Add, Picture, x25 y25 w400 h400, %icofolder%\%logoicon%
+	Gui, 4:Show, w450 h450, %title% Logo
+	;;Gui, 4:Color, 000000
 	Sleep, 500
+	Return
+
+	4GuiClose:
+	Gui 4:Cancel
 	return
 
 ;;--- End of script ---
