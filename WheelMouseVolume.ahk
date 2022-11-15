@@ -4,7 +4,11 @@
 ;;	THANKS wOxxOm https://autohotkey.com/board/topic/7977-volumouse-trick-mouse-volume-control-over-taskbar-only/
 ;;	Compatibility: Windows
 ;;	All files must be in same folder. Where you want.
-;;	64 bit AHK version : 1.1.24.2 64 bit Unicode
+;;	64 bit AHK version : 1.1.24.2 64 bit Unicode Windows 7
+;;	64 bit AHK version : 1.1.34.04 64 bit Unicode Windows 11
+
+;;	FIVE years later i update this thing.
+;;	Update for compatibility windows 11 x64
 
 ;;--- Software options ---
 
@@ -15,9 +19,11 @@
 
 	SetEnv, title, MouseWheelVolume
 	SetEnv, mode, Mouse volume control over taskbar.
-	SetEnv, version, Version 2017-11-25-1327
+	;; SetEnv, version, Version 2017-11-25-1327
+	SetEnv, version, Version 2022-11-15-2227
 	SetEnv, author, LostByteSoft
-	SetEnv, icofolder, C:\Program Files\Common Files
+	;; OLD FOLDER FOR WIN 7SetEnv, icofolder, C:\Program Files\Common Files
+	SetEnv, icofolder, C:\Users\master\AppData\Roaming
 	SetEnv, logoicon, ico_volume.ico
 
 	;; specific files
@@ -67,8 +73,8 @@
 	Menu, tray, add, Sound On/Off = %sound%, soundonoff 			; Sound on off
 	Menu, Tray, Icon, Sound On/Off = %sound%, %icofolder%\ico_Sound.ico
 	Menu, tray, add,
-	Menu, tray, add, Win Mute / UnMute Sound, mute
-	Menu, Tray, Icon, Win Mute / UnMute Sound, %icofolder%\ico_mute.ico
+	;;Menu, tray, add, Win Mute / UnMute Sound, mute		;; mute not working in w11 so just removed
+	;;Menu, Tray, Icon, Win Mute / UnMute Sound, %icofolder%\ico_mute.ico
 	Menu, tray, add, Win Sound Mixer, SndVol				; Open windows sound mixer
 	Menu, Tray, Icon, Win Sound Mixer, %icofolder%\ico_volume_2.ico
 	Menu, tray, add,
