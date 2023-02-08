@@ -12,8 +12,8 @@ echo PrintScreener
 taskkill /im "MouseWheelVolume.exe"
 
 :copy
-copy "PrintScreener.exe" "C:\Program Files\"
-copy "*.ico" "C:\Program Files\Common Files"
+copy "MouseWheelVolume.exe" "C:\Program Files\"
+copy "*.ico" "C:\Users\Administrator\AppData\Roaming%"
 
 echo "You must close this command windows"
 "C:\Program Files\MouseWheelVolume.exe"
