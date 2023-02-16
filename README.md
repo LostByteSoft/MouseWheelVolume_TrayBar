@@ -1,23 +1,28 @@
-# AutoMouseHide
+# MouseWheelVolume
 
-Auto move to hide mouse cursor, in the top right corner, after 10 seconds (default) of inactivity.
+	Move mouse to tray bar and adjust the volume. That's it. Put your mouse OVER the taskbar. Your wheel mouse is now your volume control.
+	
+THANKS wOxxOm
+From this : https://www.autohotkey.com/board/topic/7977-volumouse-trick-mouse-volume-control-over-taskbar-only/
 
-  This software goes in the system tray. It wait to you stop moving the mouse for 10 seconds (ajustable).
-  The mouse cursor goes hiding in top corner right. When you move the mouse again the cursor will reappear where you left it (Not working in w11).
-  
-  Simple thing. Can helpful on multimedia station. The cursor don't rest in the middle of the screen when you watch video file.
-  
-	AutoMouseHide_w7.exe for windows 7 x64
-
-	AutoMouseHide.exe for others
+Files and Use
+--------------------------------------------------------------------
+Mouse wheel up = +4 to volume
+Mouse wheel down = -8 to volume
 
 Versions
 --------------------------------------------------------------------
 2023-02-16 Update readme file
-2023-02-04 Windows 11 x64 compatible
+2022-11-15 update to support win 11 x64
+2017-11-25 first relaese for win 7 x64
 
 Compatibility
 --------------------------------------------------------------------
+MouseWheelVolume_w7.exe for windows 7 x64
+
+MouseWheelVolume.exe for others
+
+Full list:
 Windows 7 x64
 Windows 8 x64
 Windows 8.1 x64
