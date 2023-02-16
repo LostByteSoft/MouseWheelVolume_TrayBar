@@ -20,10 +20,10 @@
 	SetEnv, title, MouseWheelVolume
 	SetEnv, mode, Mouse volume control over taskbar.
 	;; SetEnv, version, Version 2017-11-25-1327
-	SetEnv, version, Version 2022-11-15-2227
+	SetEnv, version, Version 2023-02-16-1222
 	SetEnv, author, LostByteSoft
 	;; OLD FOLDER FOR WIN 7SetEnv, icofolder, C:\Program Files\Common Files
-	SetEnv, icofolder, %APPDATA%
+	SetEnv, icofolder, %A_AppData%
 	SetEnv, logoicon, ico_volume.ico
 
 	;; specific files

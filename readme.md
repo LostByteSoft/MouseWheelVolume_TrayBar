@@ -1,40 +1,42 @@
 # MouseWheelVolume
 
-Updated 2023-02-07 to support win 11 & win server 2022
-
-Updated: 2022-11-15 to support win 11 x64
-
-First relaese: 2017-11-25-1327 for win 7 x64
+	Move mouse to tray bar and adjust the volume. That's it. Put your mouse OVER the taskbar. Your wheel mouse is now your volume control.
+	
+THANKS wOxxOm
+From this : https://www.autohotkey.com/board/topic/7977-volumouse-trick-mouse-volume-control-over-taskbar-only/
 
 Files and Use
 --------------------------------------------------------------------
-
-THANKS wOxxOm
-
-From this :
-
-https://www.autohotkey.com/board/topic/7977-volumouse-trick-mouse-volume-control-over-taskbar-only/
-
-
-Put your mouse OVER the taskbar. Your wheel mouse is now your volume control.
-
 Mouse wheel up = +4 to volume
 Mouse wheel down = -8 to volume
 
-Support OS : Windows x64
-Sub version : 7, 8, 10, 11
+Versions
+--------------------------------------------------------------------
+2023-02-16 Update readme file
+2022-11-15 update to support win 11 x64
+2017-11-25 first relaese for win 7 x64
 
+Compatibility
+--------------------------------------------------------------------
+MouseWheelVolume_w7.exe for windows 7 x64
+
+MouseWheelVolume.exe for others
+
+Full list:
+Windows 7 x64
+Windows 8 x64
+Windows 8.1 x64
+Windows 10 x64
+Windows 11 x64
+Windows Server x64
 
 Options
 --------------------------------------------------------------------
-
 There are not really options.
-
 
 Menu Tray
 --------------------------------------------------------------------
 The menu is in the tray ! There are no more menu anywhere.
-
 
 Licence of use
 --------------------------------------------------------------------
