@@ -12,6 +12,7 @@ Mouse wheel down = -8 to volume
 
 Versions
 --------------------------------------------------------------------
+2023-02-18 Update install and files
 2023-02-16 Update readme file
 2022-11-15 update to support win 11 x64
 2017-11-25 first relaese for win 7 x64
