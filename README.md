@@ -39,6 +39,8 @@ Menu Tray
 --------------------------------------------------------------------
 The menu is in the tray ! There are no more menu anywhere.
 
+![Screenshot](mousewheel.png)
+
 Licence of use
 --------------------------------------------------------------------
 
